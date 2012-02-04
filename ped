@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $r = $ARGV[0];
+
+while (<STDIN>) {
+  my $l = $_;
+
+  my $evaline = "\$l =~ $r";
+  eval($evaline);
+  print "$l";
+}
+

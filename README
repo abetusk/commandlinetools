@@ -1,0 +1,7 @@
+Some simple command line tools that I find I keep re-implementing over the years
+
+cnvrtime    - convert from unix time to YYYYMMDD HH:MM:SS or vice versa
+numberify   - numbers lines (like 'less -S')
+ped         - perl regex processing (i.e. "echo foo | ped 's/foo/bar/'")
+pretform    - pads columns of deliminated rows with spaces for easy viewing
+transpose   - takes deliminated file (i.e. csv) and transposes it

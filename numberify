@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+use strict;
+
+my $k=0;
+
+while (<STDIN>) {
+  my $l = $_;
+  $k++;
+  print "$k $l";
+}
