@@ -5,3 +5,4 @@ numberify   - numbers lines (like 'less -S')
 ped         - perl regex processing (i.e. "echo foo | ped 's/foo/bar/'")
 pretform    - pads columns of deliminated rows with spaces for easy viewing
 transpose   - takes deliminated file (i.e. csv) and transposes it
+

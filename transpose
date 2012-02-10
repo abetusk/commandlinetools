@@ -19,8 +19,6 @@
 # Dated Febuary 4th 2012
 #
 
-
-
 use strict;
 use Getopt::Std;
 
