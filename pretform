@@ -90,14 +90,8 @@ while (<$ifh>) {
   }
 
   for ($i=0; $i<scalar(@t); $i++) {
-
-    #print "[$n,$i] $tl[$i] '$field[$i]'\n";
-
     $mfl[$i] = ($tl[$i]) if (!defined($mfl[$i]) || ($mfl[$i] < ($tl[$i])));
-    #$mfl[$i] = length($t[$i]) if (!defined($mfl[$i]) || ($mfl[$i] < length($t[$i])));
   }
-
-  #print "\n";
 
 }
 
