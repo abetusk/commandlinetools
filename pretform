@@ -40,16 +40,16 @@ if ($opts{'h'}) { show_help(); exit(0); }
 
 my ($is_stdin, $is_stdout) = (1, 1);
 my ($i, $j, $k, $n)=0;
-my @a;
-my @mfl;
+my @a;                                          # temporary array storage for input lines
+my @mfl;                                        # maximum field length
 
 my ($d, $D, $re) = ("\t", " ", '"');
 my $left_justify=1;
 
-$d = $opts{'d'} if ($opts{'d'});
-$D = $opts{'D'} if ($opts{'D'});
-$left_justify=0 if ($opts{'r'});
-$re = $opts{'e'} if ($opts{'e'});
+$d = $opts{'d'} if ($opts{'d'});                # input delimeter
+$D = $opts{'D'} if ($opts{'D'});                # output delimeter
+$left_justify=0 if ($opts{'r'});                # left or right justify
+$re = $opts{'e'} if ($opts{'e'});               # input record encapsulator
 
 my ($ifh, $ofh);
 if ($opts{'i'}) { open $ifh, $opts{'i'} or die $!; $is_stdin=0; }
@@ -65,23 +65,39 @@ while (<$ifh>) {
   chomp;
   $a[$n++]=$_;
 
+  my @tl;
+  my @field;
+
   my $continued_record=0;
 
   my @t;
   my @s = split(/\Q$d\E/, $_);
   for ($i=$k=0; $i<scalar(@s); $i++) {
+    $tl[$i] = 0;
+    $field[$i] = '';
     if ($continued_record) {
       $t[$k] .= $d . $s[$i];
       $continued_record = 0 if $s[$i] =~ /\Q$re\E$/;
     } else {
       $t[$k] = $s[$i];
+      $continued_record = 1 if $s[$i] =~ /^\Q$re\E/;
     }
+    $field[$k] .= $s[$i];
+    $field[$k] .= $d if $continued_record;
+    $tl[$k] ++ if $continued_record;
+    $tl[$k] += length($s[$i]);
     $k++ if !$continued_record;
   }
 
   for ($i=0; $i<scalar(@t); $i++) {
-    $mfl[$i] = length($t[$i]) if (!defined($mfl[$i]) || ($mfl[$i] < length($t[$i])));
+
+    #print "[$n,$i] $tl[$i] '$field[$i]'\n";
+
+    $mfl[$i] = ($tl[$i]) if (!defined($mfl[$i]) || ($mfl[$i] < ($tl[$i])));
+    #$mfl[$i] = length($t[$i]) if (!defined($mfl[$i]) || ($mfl[$i] < length($t[$i])));
   }
+
+  #print "\n";
 
 }
 
